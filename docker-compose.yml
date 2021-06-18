@@ -8,5 +8,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    volumes:
+      - ./Databases/ShortURL.db:/app/ShortURL.db
     ports:
       - 5005:80
