@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using PPRD.Databases;
+using PPRD.Models;
 
 namespace PPRD.Services
 {
@@ -10,8 +12,24 @@ namespace PPRD.Services
 
         public UrlService()
         {
-            Console.WriteLine("99999999");
             _shortURLContext = new ShortURLContext();
+        }
+
+        public void ClearAllUrl()
+        {
+            var rm =_shortURLContext.Urls.ToList();
+            _shortURLContext.Urls.RemoveRange(rm);
+            _shortURLContext.SaveChanges();
+        }
+
+        public IEnumerable<UrlsViewModel> GetAllUrl()
+        {
+            var urls = _shortURLContext.Urls.Select(e => new UrlsViewModel {
+                CreationDate = e.CreationDate,
+                OriginalURL = e.OriginalURL,
+                ExpirationDate = e.ExpirationDate
+            }).ToList();
+            return urls;
         }
 
         public string GetOriginalUrl(string shortUrl)
@@ -25,18 +43,26 @@ namespace PPRD.Services
 
         public string GetShortUrl(string originalUrl)
         {
-                var newKey = GenerateToken();  
-                Console.WriteLine("8765");
-
-                _shortURLContext.Urls.Add(new Url {
-                    Hash = newKey,
-                    OriginalURL = originalUrl,
-                    CreationDate = DateTime.Now,
-                    ExpirationDate = DateTime.Now.AddDays(350),
-                    UserId = 1
-                });
-                _shortURLContext.SaveChanges();
-                return newKey;
+            var newKey = "";
+            var isDuplicate = true;
+            while (isDuplicate)
+            {
+                newKey = GenerateToken();
+                var hasData = _shortURLContext.Urls.FirstOrDefault(e=>e.Hash == newKey);
+                if (hasData == null)
+                {
+                    isDuplicate = false;
+                }
+            }
+            _shortURLContext.Urls.Add(new Url {
+                Hash = newKey,
+                OriginalURL = originalUrl,
+                CreationDate = DateTime.Now,
+                ExpirationDate = DateTime.Now.AddDays(350),
+                UserId = 1
+            });
+            _shortURLContext.SaveChanges();
+            return newKey;
         }
         
         private string GenerateToken() {

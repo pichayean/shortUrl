@@ -18,10 +18,6 @@ namespace PPRD.Databases
         // }
         
         protected override void OnConfiguring(DbContextOptionsBuilder options) {
-            
-            string _database = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "ShortURL.db");
-       
-            Console.WriteLine(_database);
             options.UseSqlite($@"Data Source=./ShortURL.db");
         }
     }
@@ -32,7 +28,6 @@ namespace PPRD.Databases
         [MaxLength(50)]
         public string Hash { get; set; }
         [MaxLength(512)]
-
         public string OriginalURL { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ExpirationDate { get; set; }
