@@ -1,0 +1,284 @@
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Eczar|Work+Sans");
+  :root {
+    background: #f5f6fa;
+    color: #9c9c9c;
+    font: 1rem "PT Sans", sans-serif;
+  }
+  html,
+  body,
+  .container {
+    height: 100%;
+  }
+  a {
+    color: inherit;
+  }
+  a:hover {
+    color: #7f8ff4;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .btn {
+    display: inline-block;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    transition: all 200ms ease-in;
+    cursor: pointer;
+  }
+  .btn--primary {
+    background: #7f8ff4;
+    color: #fff;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    padding: 12px 36px;
+  }
+  .btn--primary:hover {
+    background: #6c7ff2;
+  }
+  .btn--primary:active {
+    background: #7f8ff4;
+    box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+  }
+  .btn--inside {
+    margin-left: -96px;
+  }
+  .form__field {
+    width: 460px;
+    background: #fff;
+    color: #a3a3a3;
+    font: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    border: 0;
+    outline: 0;
+    padding: 22px 18px;
+  }
+
+  /* colors */
+  /* fonts */
+  button {
+    margin: 0 auto;
+    display: block;
+    padding: 10px 30px;
+    background: #fff;
+    outline: none;
+    border: none;
+    font-family: "Work Sans";
+    font-weight: bolder;
+    transition: 0.2s;
+  }
+  button:active {
+    background-color: #ccc;
+  }
+  section {
+    min-height: 100px;
+    max-width: 500px;
+    background-color: #fff;
+    margin: 1px auto;
+    -webkit-box-shadow:0 6px 10px 0 rgba(0, 0, 0, 0.10);
+    -moz-box-shadow:0 6px 10px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.10);
+    position: relative;
+  }
+  section .fa-times {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    font-size: 1.3em;
+    cursor: pointer;
+  }
+  section .icon {
+    padding: 18px;
+    margin-right: 10px;
+    float: left;
+  }
+  section .icon i {
+    font-size: 4em;
+    color: #fff;
+  }
+  section h1,
+  section p {
+    font-family: "Work Sans";
+  }
+  section h1 {
+    font-size: 1.5em;
+    font-weight: bolder;
+    padding-top: 5px;
+    padding-bottom: 2px;
+  }
+  section p {
+    font-size: 0.8em;
+    padding-top: 6px;
+  }
+  #success .icon {
+    background-color: #29d885;
+  }
+  #fail .icon {
+    background-color: #e44b5e;
+  }
+</style>
+
+<div class="container">
+    <div style="margin: 80px;">
+        <img width="300px" src="https://camo.githubusercontent.com/56ea24702a43a27f55794275849e38c16cd393e244a59297a71266b9b34e3e53/68747470733a2f2f617368616c6c656e64657369676e2e636f2e756b2f696d616765732f637573746f6d2f73686f72742d75726c2d6c6f676f2e706e67" alt="">
+
+    </div>
+  <div class="container__item" id="containerOriginUrl">
+    <form class="form">
+      <input
+        type="text"
+        id="originUrl"
+        class="form__field"
+        placeholder="Your link"
+      />
+      <button
+        type="button"
+        onclick="getShortUrl()"
+        class="btn btn--primary btn--inside uppercase"
+      >
+        Get
+      </button>
+    </form>
+  </div>
+  <section id="success" style="display: none">
+    <div class="icon">
+      <i class="fa fa-smile-o" aria-hidden="true"></i>
+    </div>
+    <h1 style="color: #29d885" id="shortUrl">Successfully!</h1>
+    <textarea type="text" hidden id="shortUrlhidden"></textarea>
+    <a style="cursor: pointer" onclick="copy()" id="copy">Copy</a>
+    <i class="fa fa-times succ" aria-hidden="true"></i>
+  </section>
+</div>
+
+<script src="https://use.fontawesome.com/80976cfcfc.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"
+></script>
+<script>
+  function getShortUrl() {
+    var originUrl = document.getElementById("originUrl").value;
+    if (originUrl == "") {
+      alert("Please take url");
+      return;
+    }
+    if (!originUrl.includes(originUrl)) {
+      alert("Please url only");
+      return;
+    }
+    // displaySuccess();
+    var requestUrl = `/GetShortUrl?url=${originUrl}`
+    var res = httpGet(requestUrl);
+    console.log(res)
+    var data = JSON.parse(res)
+    if (data.isSuccess) {
+        displaySuccess();
+        document.getElementById('shortUrl').innerHTML = data.url;
+        document.getElementById("shortUrlhidden").innerHTML =data.url;
+    } else {
+      alert('error please try again')
+    }
+  }
+
+  function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+  }
+
+  function displaySuccess() {
+    $("#containerOriginUrl").fadeIn();
+    $("#containerOriginUrl").css({ display: "none" });
+
+    $("section").css({ width: "500px", display: "block" });
+    $("section h1,section p,section i,#copy").css({ display: "block" });
+    $("section .icon").css({
+      borderRadius: "0",
+      opacity: 1,
+    });
+  }
+
+  function hideSuccess() {
+    $("#success h1,#success p,#success .succ, #copy").css({
+      display: "none",
+    });
+
+    setTimeout(() => {
+      $("#success").css({ display: "none" });
+      $("#containerOriginUrl").css({ display: "block" });
+      $("#containerOriginUrl").fadeIn();
+    }, 500);
+    $("#success").animate(
+      {
+        width: "0",
+      },
+      250,
+      function () {
+        $("#success .icon").animate(
+          {
+            borderRadius: "50%",
+          },
+          250,
+          function () {
+            $("#success .icon").animate(
+              {
+                opacity: 0,
+              },
+              250
+            );
+          }
+        );
+      }
+    );
+  }
+
+  function copy() {
+    var content = document.getElementById("shortUrlhidden").innerHTML;
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        console.log("Text copied to clipboard...");
+      })
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      });
+    $("#shortUrl").fadeOut();
+    $("#shortUrl").fadeIn();
+    // var data = document.getElementById("shortUrlhidden").innerHTML;
+    // document.getElementById("shortUrl").innerHTML = "Copy";
+    // var timesRun = 0;
+    // var interval = setInterval(function () {
+    //   timesRun += 1;
+    //   if (timesRun === 3) {
+    //     clearInterval(interval);
+    //     document.getElementById("shortUrl").innerHTML = "Complete!";
+
+    //   }
+    //   if (document.getElementById("shortUrl").innerHTML.length <= 6) {
+    //     document.getElementById("shortUrl").innerHTML += ".";
+    //   } else {
+    //     document.getElementById("shortUrl").innerHTML = "Copy";
+    //   }
+    //   //do whatever here..
+    // }, 500);
+  }
+
+  $(document).ready(function () {
+    $(".succ").on("click", function () {
+      hideSuccess();
+    });
+  });
+</script>
