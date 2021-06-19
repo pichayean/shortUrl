@@ -63,7 +63,7 @@ namespace PPRD.Controllers
             {
                 return new Shortener{
                     IsSuccess = false,
-                    Url = "something wrong"
+                    Url = ex.Message
                 };
             }
         }

@@ -45,14 +45,17 @@ namespace PPRD.Services
         {
             var newKey = "";
             var isDuplicate = true;
+            var cnt = 0;
             while (isDuplicate)
             {
+                cnt++;
                 newKey = GenerateToken();
                 var hasData = _shortURLContext.Urls.FirstOrDefault(e=>e.Hash == newKey);
                 if (hasData == null)
-                {
                     isDuplicate = false;
-                }
+                    
+                if (cnt > 7)
+                    throw new Exception("error duplicate key please try again..");
             }
             _shortURLContext.Urls.Add(new Url {
                 Hash = newKey,
@@ -66,8 +69,10 @@ namespace PPRD.Services
         }
         
         private string GenerateToken() {
-            string urlsafe = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
-            return urlsafe.Substring(new Random().Next(0, urlsafe.Length), new Random().Next(4, 8));
+			string ranUrl = Guid.NewGuid().ToString("N").Substring(0, 7);  
+            return ranUrl;
+            // string urlsafe = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
+            // return urlsafe.Substring(new Random().Next(0, urlsafe.Length), new Random().Next(4, 8));
         }
     }
 }
