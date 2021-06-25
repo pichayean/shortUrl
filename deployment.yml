@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: short-url-container
-        image: pichayean/short-url
+        image: pichayean/short-url:v1
         resources:
           limits:
             memory: "128Mi"
