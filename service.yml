@@ -7,7 +7,7 @@ spec:
     app: short-url-pod
   ports:
   - port: 5005
-    targetPort: 5005
+    targetPort: 80
   type: LoadBalancer
   externalIPs:
   - 194.233.73.42

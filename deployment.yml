@@ -25,4 +25,4 @@ spec:
         - name: "ASPNETCORE_ENVIRONMENT"
           value: Production
         ports:
-        - containerPort: 5005
+        - containerPort: 80
