@@ -6,11 +6,11 @@ spec:
   replicas: 3 # We'll get three identical pods
   selector:
     matchLabels:
-      app: short-url-pod1
+      app: short-url-pod
   template:
     metadata:
       labels:
-        app: short-url-pod1
+        app: short-url-pod
     spec:
       containers:
       - name: short-url-container
