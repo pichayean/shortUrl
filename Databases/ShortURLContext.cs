@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace PPRD.Databases
+namespace ShortUrl.Databases
 {
     public class ShortURLContext : DbContext
     {

@@ -1,5 +1,5 @@
 using System;
-namespace PPRD.Models
+namespace ShortUrl.Models
 {
     public class UrlsViewModel
     {

@@ -1125,11 +1125,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Workspace\\PPRD\\PPRD.csproj",
-      "projectName": "PPRD",
-      "projectPath": "D:\\Workspace\\PPRD\\PPRD.csproj",
+      "projectUniqueName": "D:\\Workspace\\2.vps-202.183.198.159\\shortUrl\\ShortUrl.csproj",
+      "projectName": "ShortUrl",
+      "projectPath": "D:\\Workspace\\2.vps-202.183.198.159\\shortUrl\\ShortUrl.csproj",
       "packagesPath": "C:\\Users\\siam_\\.nuget\\packages\\",
-      "outputPath": "D:\\Workspace\\PPRD\\obj\\",
+      "outputPath": "D:\\Workspace\\2.vps-202.183.198.159\\shortUrl\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\siam_\\AppData\\Roaming\\NuGet\\NuGet.Config",

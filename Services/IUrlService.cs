@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using PPRD.Models;
+using ShortUrl.Models;
 
-namespace PPRD.Services
+namespace ShortUrl.Services
 {
     public interface IUrlService
     {

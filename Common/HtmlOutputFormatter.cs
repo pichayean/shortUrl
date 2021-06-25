@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 
-namespace PPRD.Common
+namespace ShortUrl.Common
 {
     public class HtmlOutputFormatter : StringOutputFormatter
     {

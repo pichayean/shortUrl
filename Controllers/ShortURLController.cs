@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using PPRD.Common;
-using PPRD.Models;
-using PPRD.Services;
+using ShortUrl.Common;
+using ShortUrl.Models;
+using ShortUrl.Services;
 
-namespace PPRD.Controllers
+namespace ShortUrl.Controllers
 {
     [ApiController]
     [Route("")]

@@ -1,4 +1,4 @@
-namespace PPRD.Common
+namespace ShortUrl.Common
 {
     public class ShortUrlConfig
     {

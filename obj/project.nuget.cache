@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6y7v1zjjMtTh6MHsSi7aFn+Hzz2m2M8kg3owCdtUir2anWw2hT/KPZRod9czHeaPiunU4U7hi+wycQotbBVDcw==",
+  "dgSpecHash": "qt+dCm813qQqG5r3btqIaHjUgabaKodTVRp8WQ9toalImvu80qiL7exr6wx/DToys36jaN+sQt3FT7u5491wpA==",
   "success": true,
-  "projectFilePath": "D:\\Workspace\\PPRD\\PPRD.csproj",
+  "projectFilePath": "D:\\Workspace\\2.vps-202.183.198.159\\shortUrl\\ShortUrl.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\siam_\\.nuget\\packages\\microsoft.data.sqlite.core\\5.0.7\\microsoft.data.sqlite.core.5.0.7.nupkg.sha512",
     "C:\\Users\\siam_\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\3.1.6\\microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",

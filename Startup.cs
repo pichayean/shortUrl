@@ -11,10 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using PPRD.Common;
-using PPRD.Services;
+using ShortUrl.Common;
+using ShortUrl.Services;
 
-namespace PPRD
+namespace ShortUrl
 {
     public class Startup
     {

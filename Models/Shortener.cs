@@ -1,4 +1,4 @@
-namespace PPRD.Models
+namespace ShortUrl.Models
 {
     public class Shortener
     {
