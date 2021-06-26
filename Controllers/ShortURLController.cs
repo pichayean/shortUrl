@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using ShortUrl.Common;
 using ShortUrl.Models;
 using ShortUrl.Services;
+using System.Net;
 
 namespace ShortUrl.Controllers
 {
@@ -39,10 +40,13 @@ namespace ShortUrl.Controllers
 
                 Console.WriteLine(remoteIpAddress);
                 var originUrl = _urlService.GetOriginalUrl(shortUrl);
-                return Redirect(originUrl); 
+
+                Uri originUri = new Uri(originUrl);
+                return Redirect(originUri.AbsoluteUri); 
             }
             catch (System.Exception ex)
             {
+                Console.WriteLine(ex);
                 return Redirect($@"{_shortUrlConfig.HostingName}home"); 
             }
         }
@@ -78,7 +82,7 @@ namespace ShortUrl.Controllers
                 var urls = _urlService.GetAllUrl().ToList();
                 return new {
                     Total = urls.Count(),
-                    Urls = urls
+                    Urls = urls,
                 };
             }
             catch (System.Exception ex)
@@ -113,10 +117,6 @@ namespace ShortUrl.Controllers
             }
         }
         
-
-
-
-
         [HttpGet]
         [Route("")]
         public RedirectResult GetEmpty()
