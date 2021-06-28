@@ -10,9 +10,9 @@ namespace ShortUrl.Services
     {
         private readonly ShortURLContext _shortURLContext;
 
-        public UrlService()
+        public UrlService(ShortURLContext shortURLContext)
         {
-            _shortURLContext = new ShortURLContext();
+            _shortURLContext = shortURLContext;
         }
 
         public void ClearAllUrl()

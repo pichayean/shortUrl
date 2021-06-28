@@ -17,9 +17,22 @@ namespace ShortUrl.Databases
         // {
         // }
         
-        protected override void OnConfiguring(DbContextOptionsBuilder options) {
-            options.UseSqlite($@"Data Source=./ShortURL.db");
+        public ShortURLContext(DbContextOptions<ShortURLContext> options)
+            : base(options)
+        {
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=119.59.96.60\\MSSQLSERVER2016;Database=macus_todo;Trusted_Connection=False;User ID=macus_todo;Password=P@ssw0rd;");
+            }
+        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder options) {
+        //     options.UseSqlite($@"Data Source=./ShortURL.db");
+        // }
     }
 
     public class Url

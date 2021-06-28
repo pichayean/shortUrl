@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ShortUrl.Common;
+using ShortUrl.Databases;
 using ShortUrl.Services;
 
 namespace ShortUrl
@@ -30,6 +32,7 @@ namespace ShortUrl
         {
             services.Configure<ShortUrlConfig>(Configuration.GetSection("ShortUrlConfig"));
             // services.AddDbContext<ShortURLContext>(options => options.UseSqlite(Configuration.GetConnectionString("cs")));
+            services.AddDbContext<ShortURLContext>(options => options.UseSqlServer(Configuration.GetConnectionString("cs")));
             services.AddScoped<IUrlService, UrlService>();
 
             services.AddMvc(options => options.OutputFormatters.Add(new HtmlOutputFormatter()));
