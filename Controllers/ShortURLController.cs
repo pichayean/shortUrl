@@ -33,22 +33,12 @@ namespace ShortUrl.Controllers
         [Route("{shortUrl}")]
         public RedirectResult Get(string shortUrl)
         {
-            try
-            {
-                Console.WriteLine(HttpContext.Request);
-                var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
+            var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
 
-                Console.WriteLine(remoteIpAddress);
-                var originUrl = _urlService.GetOriginalUrl(shortUrl);
+            var originUrl = _urlService.GetOriginalUrl(shortUrl);
 
-                Uri originUri = new Uri(originUrl);
-                return Redirect(originUri.AbsoluteUri); 
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex);
-                return Redirect($@"{_shortUrlConfig.HostingName}home"); 
-            }
+            Uri originUri = new Uri(originUrl);
+            return Redirect(originUri.AbsoluteUri); 
         }
 
         [HttpGet]
@@ -72,54 +62,9 @@ namespace ShortUrl.Controllers
             }
         }
         
-
-        [HttpGet]
-        [Route("GetUrls")]
-        public dynamic GetUrls()
-        {
-            try
-            {
-                var urls = _urlService.GetAllUrl().ToList();
-                return new {
-                    Total = urls.Count(),
-                    Urls = urls,
-                };
-            }
-            catch (System.Exception ex)
-            {
-                return new {
-                    Total = 0,
-                    Message = "something wrong"
-                };
-            }
-        }
-
-        [HttpGet]
-        [Route("RemoveAll")]
-        public dynamic RemoveAll(string code)
-        {
-            try
-            {
-                if(code != "remove-all") 
-                    throw new Exception("permission denied");
-                    
-                _urlService.ClearAllUrl();
-                return new {
-                    IsSuccess = true,
-                };
-            }
-            catch (System.Exception ex)
-            {
-                return new {
-                    IsSuccess = false,
-                    Message = ex.Message,
-                };
-            }
-        }
-        
         [HttpGet]
         [Route("")]
-        public RedirectResult GetEmpty()
+        public RedirectResult DefaultUrl()
         {
             return Redirect($@"{_shortUrlConfig.HostingName}home"); 
         }
