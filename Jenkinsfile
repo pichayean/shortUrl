@@ -29,7 +29,7 @@ pipeline {
     stages {
         stage('Build Docker Images') {
             steps {
-                sh 'docker build --no-cache -t todo:${DOCKER_TAG} .';
+                sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
             }
         }
         stage('Deployment to kube') {
