@@ -28,6 +28,7 @@ namespace ShortUrl
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            Configuration = configuration;
             Configuration =
                 new ConfigurationBuilder()
                 .SetBasePath(ENV.ContentRootPath)
