@@ -57,6 +57,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: accshorturlount-service
+            name: shorturl-service
             port:
               number: 80
