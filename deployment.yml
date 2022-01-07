@@ -7,11 +7,11 @@ spec:
     app: shorturl-pod
   ports:
   - port: 8089
-    nodePort: 38089
+    nodePort: 30889
     protocol: TCP
     targetPort: 80
   type: NodePort
-  
+  30000-32767
 ---
 apiVersion: apps/v1
 kind: Deployment
