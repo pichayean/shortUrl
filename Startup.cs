@@ -77,7 +77,7 @@ namespace ShortUrl
 }
 
 // https://www.npgsql.org/efcore/
-// dotnet ef dbcontext scaffold "Host=194.233.73.42;Database=short_url;Username=postgres;Password=Ld4t5555" Npgsql.EntityFrameworkCore.PostgreSQL
+// dotnet ef dbcontext scaffold "Host=144.126.140.118;Database=short_url;Username=postgres;Password=Ld4t5555" Npgsql.EntityFrameworkCore.PostgreSQL
 
     // <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
     
