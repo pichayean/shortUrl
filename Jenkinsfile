@@ -32,11 +32,12 @@ pipeline {
 	stage('Check pod ready') {
             steps {
 		    
-	 	def count = 5
-def fact = 1
-do {
-    fact *= count--
-} while(count > 1)
+	 	script {
+                    def browsers = ['chrome', 'firefox']
+                    for (int i = 0; i < browsers.size(); ++i) {
+                        echo "Testing the ${browsers[i]} browser"
+                    }
+                }
 		//sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
 		sh "echo 'success'"
 		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
