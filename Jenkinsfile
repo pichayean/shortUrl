@@ -43,7 +43,11 @@ pipeline {
         }
 	stage('Check pod ready') {
             steps {
-		sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
+		    
+		    for (i in [ 'a', 'b', 'c' ]) {
+			echo i
+		    }
+		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
             }
         }
         // stage('Check Staging Ready') {
