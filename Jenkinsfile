@@ -24,18 +24,18 @@ pipeline {
         NEW_VERSION = '1.0.0'
         CI = 'true'
         DOCKER_TAG = getDockerTag()
-        DOCKER_OLD_TAG = getOldDockerTag()
-        statz_build = '';
-    	count = 0
+        //DOCKER_OLD_TAG = getOldDockerTag()
     }
     stages {
 	stage('Check pod ready') {
             steps {
 		    
 	 	script {
-                    def browsers = ['chrome', 'firefox']
-                    for (int i = 0; i < browsers.size(); ++i) {
-                        echo "Testing the ${browsers[i]} browser"
+                    //def browsers = ['chrome', 'firefox']
+                    for (int i = 0; i < 30; ++i) {
+			sleep(2)
+			sh "kubectl get pods jenkins-k8s-deployment"
+                        echo "wait"
                     }
                 }
 		//sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
