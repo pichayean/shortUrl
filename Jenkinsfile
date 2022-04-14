@@ -34,9 +34,15 @@ pipeline {
         }
         stage('Deployment to kube') {
             steps {
+		sh "sleep 15"
                 sh "chmod +x sedtag.sh"
                 sh "./sedtag.sh ${DOCKER_TAG}"
                 sh 'kubectl apply -f app-deployment.yml';
+            }
+        }
+	stage('Check pod ready') {
+            steps {
+		sh "for value in test; do sleep 15; echo $value; done"
             }
         }
         // stage('Check Staging Ready') {
