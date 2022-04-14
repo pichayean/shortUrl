@@ -25,18 +25,20 @@ pipeline {
         CI = 'true'
         DOCKER_TAG = getDockerTag()
         DOCKER_OLD_TAG = getOldDockerTag()
+        statz_build = '';
+    	count = 0
     }
     stages {
 	stage('Check pod ready') {
             steps {
-	    while [[ $statz_build = 'running' ]]
-	    do 
-	       echo 'runnig while loop'
-	       statz_build= getDockerTag()
-	       if [[ $statz_build != '0' ]]; then
-	       break
-	    fi
-	    done
+		    while(count < 5 || statz_build != 8) {
+		    	 sleep 5
+			 println(count);
+			 println(statz_build);
+	       		 statz_build = getDeploymentReady()
+			 count++;
+		      }
+			 sh "echo 'success'"
 		//sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
 		sh "echo 'success'"
 		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
