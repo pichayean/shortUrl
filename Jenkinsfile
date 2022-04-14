@@ -42,13 +42,20 @@ pipeline {
             }
         }
 	stage('Check pod ready') {
-            steps {
+		steps {
+		   script {
+		      ["1","2","2","2","2"].each() {
+			 echo 3333
+		      }
+		   }
+		}
+            //steps {
 		    
-		    for (i in [ 'a', 'b', 'c' ]) {
-			echo i
+		//    for (i in [ 'a', 'b', 'c' ]) {
+		//	echo i
 		    }
 		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
-            }
+            //}
         }
         // stage('Check Staging Ready') {
         //     steps {
