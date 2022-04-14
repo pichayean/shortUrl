@@ -29,15 +29,15 @@ pipeline {
     stages {
         stage('Build Docker Images') {
             steps {
-                sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
+                //sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
             }
         }
         stage('Deployment to kube') {
             steps {
 		sh "sleep 15"
-                sh "chmod +x sedtag.sh"
-                sh "./sedtag.sh ${DOCKER_TAG}"
-                sh 'kubectl apply -f app-deployment.yml';
+                //sh "chmod +x sedtag.sh"
+                //sh "./sedtag.sh ${DOCKER_TAG}"
+                //sh 'kubectl apply -f app-deployment.yml';
             }
         }
 	stage('Check pod ready') {
