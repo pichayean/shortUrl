@@ -43,7 +43,7 @@ pipeline {
         }
 	stage('Check pod ready') {
             steps {
-		sh "for value in test; do sleep 15; echo $value; done"
+		sh "for value in 1 2 3 4 5; do sleep 15; echo $value; done"
             }
         }
         // stage('Check Staging Ready') {
