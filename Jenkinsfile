@@ -49,6 +49,7 @@ pipeline {
 			sleep(2)
 			sh "kubectl get pods | grep  jenkins-k8s-deployment"
                         echo "wait"
+                        echo getDeploymentReady()
                     }
                 }
 		//sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
