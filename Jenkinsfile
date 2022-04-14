@@ -27,19 +27,6 @@ pipeline {
         DOCKER_OLD_TAG = getOldDockerTag()
     }
     stages {
-        stage('Build Docker Images') {
-            steps {
-                sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
-            }
-        }
-        stage('Deployment to kube') {
-            steps {
-		sh "sleep 15"
-                sh "chmod +x sedtag.sh"
-                sh "./sedtag.sh ${DOCKER_TAG}"
-                sh 'kubectl apply -f app-deployment.yml';
-            }
-        }
 	stage('Check pod ready') {
             steps {
 		sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
