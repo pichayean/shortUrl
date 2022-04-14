@@ -34,7 +34,7 @@ pipeline {
                     //def browsers = ['chrome', 'firefox']
                     for (int i = 0; i < 30; ++i) {
 			sleep(2)
-			sh "kubectl get pods jenkins-k8s-deployment"
+			sh "kubectl get pods | grep  jenkins-k8s-deployment"
                         echo "wait"
                     }
                 }
