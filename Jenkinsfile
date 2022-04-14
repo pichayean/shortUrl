@@ -7,15 +7,15 @@ def notify(tag, message, stickerId) {
     def lineMessage = "todo-${message}:${tag}:buildNo-[${buildNo}] \r\n";
 	sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${lineMessage}' -F 'stickerId=${stickerId}' -F 'stickerPackageId=1'";
 }
-
+def appName = "jenkins-k8s-deployment";
 def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
     return tag
 }
 
 def getDeploymentReady(){
-    def oldtag  = sh script: 'kubectl get ', returnStdout: true
-    return oldtag
+    def isRunning  = sh script: 'kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment', returnStdout: true
+    return isRunning
 }
 
 pipeline {
@@ -29,7 +29,15 @@ pipeline {
     stages {
 	stage('Check pod ready') {
             steps {
-		sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
+	    while [[ $statz_build = 'running' ]]
+	    do 
+	       echo 'runnig while loop'
+	       statz_build= getDockerTag()
+	       if [[ $statz_build != '0' ]]; then
+	       break
+	    fi
+	    done
+		//sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
 		sh "echo 'success'"
 		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
             }
