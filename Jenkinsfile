@@ -13,11 +13,6 @@ def getDockerTag(){
     return tag
 }
 
-def getOldDockerTag(){
-    def oldtag  = sh script: 'git rev-parse @~', returnStdout: true
-    return oldtag
-}
-
 def getDeploymentReady(){
     def oldtag  = sh script: 'kubectl get ', returnStdout: true
     return oldtag
@@ -34,34 +29,23 @@ pipeline {
     stages {
         stage('Build Docker Images') {
             steps {
-		sh "echo 12344"
-                //sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
+                sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
             }
         }
         stage('Deployment to kube') {
             steps {
 		sh "sleep 15"
-                //sh "chmod +x sedtag.sh"
-                //sh "./sedtag.sh ${DOCKER_TAG}"
-                //sh 'kubectl apply -f app-deployment.yml';
+                sh "chmod +x sedtag.sh"
+                sh "./sedtag.sh ${DOCKER_TAG}"
+                sh 'kubectl apply -f app-deployment.yml';
             }
         }
 	stage('Check pod ready') {
-		steps {
-		   script {
-		      ["1","2","2","2","2"].each() {
-			 echo 3333
-		      }
-			   
-		   }
-		}
-            //steps {
-		    
-		//    for (i in [ 'a', 'b', 'c' ]) {
-		//	echo i
-		 //   }
+            steps {
+		sh "while [[ $(kubectl get pods --field-selector=status.phase=Running  | grep -c jenkins-k8s-deployment) != 0 ]]; do sleep 5; kubectl get deploy jenkins-k8s-deployment; done;"
+		sh "echo 'success'"
 		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
-            //}
+            }
         }
         // stage('Check Staging Ready') {
         //     steps {
