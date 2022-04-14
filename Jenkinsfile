@@ -29,6 +29,7 @@ pipeline {
     stages {
         stage('Build Docker Images') {
             steps {
+		sh "echo 12344"
                 //sh 'docker build --no-cache -t shorturl:${DOCKER_TAG} .';
             }
         }
