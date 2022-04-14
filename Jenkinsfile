@@ -18,6 +18,11 @@ def getOldDockerTag(){
     return oldtag
 }
 
+def getDeploymentReady(){
+    def oldtag  = sh script: 'kubectl get ', returnStdout: true
+    return oldtag
+}
+
 pipeline {
     agent any
     environment {
@@ -47,13 +52,18 @@ pipeline {
 		      ["1","2","2","2","2"].each() {
 			 echo 3333
 		      }
+			   
+			while [ "$(kubectl get pods -l=app='jenkins-k8s-deployment' -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ]; do
+			   sleep 5
+			   echo "Waiting for Broker to be ready."
+			done
 		   }
 		}
             //steps {
 		    
 		//    for (i in [ 'a', 'b', 'c' ]) {
 		//	echo i
-		    }
+		 //   }
 		//sh "for value in 1 2 3 4 5; do sleep 15; echo 123; done"
             //}
         }
