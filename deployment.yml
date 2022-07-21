@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: shorturl-container
-        image: shorturl:tagVersion
+        image: shorturl:t1
         resources:
           limits:
             memory: "128Mi"
@@ -51,7 +51,7 @@ metadata:
    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
  rules:
- - host: short.msshifu.com
+ - host: short.trustmacus.com
    http:
      paths:
      - path: /
