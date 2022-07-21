@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: shorturl-container
-        image: shorturl:t1
+        image: shorturl:latest
         resources:
           limits:
             memory: "128Mi"
