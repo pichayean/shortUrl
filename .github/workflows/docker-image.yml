@@ -14,3 +14,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag pichayean/short-url:$(date +%s)
+      
+      - name: Push image to Docker Hub
+        run: docker push pichayean/short-url:$(date +%s)
+      
