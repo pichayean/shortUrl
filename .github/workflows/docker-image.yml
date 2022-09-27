@@ -1,11 +1,12 @@
 name: ci
 
 on:
-  push:
-    branches: main
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
-  login:
+  build-image-and-push:
     runs-on: ubuntu-latest
     steps:
       -
