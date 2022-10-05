@@ -11,14 +11,14 @@ spec:
     protocol: TCP
     targetPort: 80
   type: NodePort
-  
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shorturl-deployment
 spec:
-  replicas: 1 
+  replicas: 1
   selector:
     matchLabels:
       app: shorturl-pod
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: shorturl-container
-        image: shorturl:latest
+        image: pichayean/short-url:amd64
         resources:
           limits:
             memory: "128Mi"
